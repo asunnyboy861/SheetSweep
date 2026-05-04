@@ -4,7 +4,7 @@ import CoreXLSX
 actor ExcelParser {
 
     func parseFile(at url: URL) async throws -> SpreadsheetData {
-        guard let spreadsheet = try? XLSXFile(filepath: url.path) else {
+        guard let spreadsheet = XLSXFile(filepath: url.path) else {
             throw ParseError.invalidFile
         }
 
@@ -15,7 +15,7 @@ actor ExcelParser {
                 guard let worksheet = try? spreadsheet.parseWorksheet(at: path) else { continue }
 
                 var rows: [[String?]] = []
-                let sharedStrings = try spreadsheet.parseSharedStrings()
+                let sharedStrings = try? spreadsheet.parseSharedStrings()
 
                 for row in worksheet.data?.rows ?? [] {
                     var cells: [String?] = []

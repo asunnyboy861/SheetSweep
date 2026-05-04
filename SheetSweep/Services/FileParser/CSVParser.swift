@@ -7,7 +7,7 @@ actor CSVParser {
         let csv = try CSV<Named>(url: url)
 
         var rows: [[String?]] = []
-        var headerRow: [String?] = csv.header.map { Optional($0) }
+        let headerRow: [String?] = csv.header.map { Optional($0) }
         rows.append(headerRow)
 
         for row in csv.rows {
